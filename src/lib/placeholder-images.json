@@ -1,0 +1,40 @@
+{
+  "placeholderImages": [
+    {
+      "id": "shreya",
+      "description": "Photo of Shreya Jain",
+      "imageUrl": "/team/shreya.jpeg",
+      "imageHint": "person photo"
+    },
+    {
+      "id": "mukut",
+      "description": "Photo of Mukut Kumar",
+      "imageUrl": "/team/mukut.jpeg",
+      "imageHint": "person photo"
+    },
+    {
+      "id": "vimal",
+      "description": "Photo of Vimal Singh",
+      "imageUrl": "/team/vimal.jpeg",
+      "imageHint": "person photo"
+    },
+    {
+      "id": "madhu",
+      "description": "Photo of Madhu Maddheshiya",
+      "imageUrl": "/team/madhu.jpeg",
+      "imageHint": "person photo"
+    },
+    {
+      "id": "ashutosh",
+      "description": "Photo of Ashutosh Singh",
+      "imageUrl": "/team/ashutosh.jpeg",
+      "imageHint": "person photo"
+    },
+    {
+      "id": "ayush",
+      "description": "Photo of Ayush Singh",
+      "imageUrl": "/team/ayush.jpeg",
+      "imageHint": "person photo"
+    }
+  ]
+}

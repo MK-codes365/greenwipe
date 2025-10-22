@@ -1,0 +1,43 @@
+model WipeEvent {
+  id           String   @id @default(uuid())
+  timestamp    DateTime @default(now())
+  totalWipes   Int
+  co2Saved     Float
+  eWasteDiverted Float
+  energySaved  Float
+}
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Certificate {
+  id                String   @id @default(uuid())
+  itemName          String
+  itemSize          String
+  wipeMethod        String
+  wipeCompletionDate DateTime
+  verificationMethod String
+  clientName        String
+  reportJson        String
+  anchored          Boolean
+  transactionId     String
+  auditTrail        Json
+}
+
+model Stats {
+  id                String   @id @default("stats")
+  totalWipes        Int
+  pdfDownloads      Int
+  eWasteDiverted    Float
+  co2Saved          Float
+  energySaved       Float
+  treesSaved        Int
+  lastCertificateId String
+  wipeMethodDistribution Json
+}
+
