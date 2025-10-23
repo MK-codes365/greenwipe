@@ -348,59 +348,15 @@ export default function DashboardPage() {
                     {initialContent.features.items.map((feature, index) => (
                         <div
                             key={index}
-                            className="feature-card bg-card/50 backdrop-blur-sm p-8 rounded-xl shadow-md flex flex-col items-center text-center border border-border/20 transition-all duration-300"
+                            className="bg-card/50 backdrop-blur-sm p-8 rounded-xl shadow-md flex flex-col items-center text-center border border-border/20"
                         >
-                            <div className="mb-4 text-primary feature-icon transition-all duration-300">
+                            <div className="mb-4 text-primary">
                                 {iconMap[feature.icon]}
                             </div>
-                            <h3 className="text-xl font-bold mb-2 feature-title transition-all duration-300">{feature.title}</h3>
+                            <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
                             <p className="text-muted-foreground">{feature.description}</p>
                         </div>
                     ))}
-                {/* Features card and icon hover animation styles */}
-                <style jsx global>{`
-                    .feature-card {
-                        box-shadow: 0 2px 16px 0 #22c55e22, 0 0 0 #38bdf8;
-                        border: 2px solid transparent;
-                        background-clip: padding-box;
-                        position: relative;
-                    }
-                    .feature-card:hover {
-                        transform: scale(1.05) translateY(-4px);
-                        box-shadow: 0 4px 32px 0 #22c55e55, 0 0 24px #38bdf855;
-                        border-image: linear-gradient(90deg, #22c55e, #38bdf8) 1;
-                        z-index: 2;
-                    }
-                    .feature-card::before {
-                        content: "";
-                        position: absolute;
-                        inset: -2px;
-                        border-radius: 1rem;
-                        background: linear-gradient(90deg, #22c55e 0%, #38bdf8 100%);
-                        opacity: 0.15;
-                        z-index: 0;
-                        pointer-events: none;
-                    }
-                    .feature-card:hover::before {
-                        opacity: 0.35;
-                    }
-                    .feature-icon {
-                        transition: transform 0.3s, filter 0.3s;
-                    }
-                    .feature-card:hover .feature-icon {
-                        transform: scale(1.2) rotate(-8deg);
-                        filter: drop-shadow(0 0 12px #22c55e) drop-shadow(0 0 8px #38bdf8);
-                    }
-                    .feature-title {
-                        background: linear-gradient(90deg, #22c55e 0%, #38bdf8 100%);
-                        -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        text-shadow: 0 0 8px #22c55e22;
-                    }
-                    .feature-card:hover .feature-title {
-                        text-shadow: 0 0 24px #22c55e, 0 0 8px #38bdf8;
-                    }
-                `}</style>
                 </div>
             </div>
         </section>
