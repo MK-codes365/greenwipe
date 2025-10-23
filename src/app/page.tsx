@@ -160,19 +160,29 @@ const initialContent = {
         description: "Explore the intuitive interface that gives you full control over your data sanitization process. Monitor progress, view statistics, and manage certificates—all in one place.",
         images: [
             {
-                src: "https://picsum.photos/seed/dashboard1/1200/800",
-                alt: "Dashboard showing statistics and charts",
-                hint: "dashboard data"
+                src: "/dashboard.png",
+                alt: "Dashboard",
+                hint: "Dashboard: Monitor wipes, impact, and live stats in real time."
             },
             {
-                src: "https://picsum.photos/seed/dashboard2/1200/800",
-                alt: "Wipe verification page with certificate details",
-                hint: "certificate"
+                src: "/wipe methods.png",
+                alt: "Wipe Methods",
+                hint: "Wipe Methods: Choose secure algorithms for every device and file."
             },
             {
-                src: "https://picsum.photos/seed/dashboard3/1200/800",
-                alt: "File wiping interface",
-                hint: "interface"
+                src: "/file wipe.png",
+                alt: "File Wipe",
+                hint: "File Wipe: Instantly erase sensitive files with a click."
+            },
+            {
+                src: "/drive wipe.png",
+                alt: "Drive Wipe",
+                hint: "Drive Wipe: Wipe entire drives securely and track progress."
+            },
+            {
+                src: "/multi platform wipe.png",
+                alt: "Multi Platform Wipe",
+                hint: "Multi-Platform Wiping: Erase data across devices and operating systems."
             }
         ]
     },
@@ -338,7 +348,7 @@ export default function DashboardPage() {
                     {initialContent.features.items.map((feature, index) => (
                         <div
                             key={index}
-                            className="bg-card/50 backdrop-blur-sm p-8 rounded-xl shadow-lg md:hover:shadow-primary/20 md:hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center border border-border/20"
+                            className="bg-card/50 backdrop-blur-sm p-8 rounded-xl shadow-md shadow-[0_0_8px_hsl(var(--primary)/20)] flex flex-col items-center text-center border border-border/20"
                         >
                             <div className="mb-4 text-primary">
                                 {iconMap[feature.icon]}
@@ -418,8 +428,8 @@ export default function DashboardPage() {
                     {initialContent.howItWorks.items.map((item, index) => (
                         <React.Fragment key={index}>
                             <div className="flex flex-col items-center text-center gap-4 transition-all duration-300 group">
-                                <div className="w-32 h-32 rounded-full border-2 border-primary/20 bg-card/50 flex items-center justify-center group-hover:bg-primary/10 group-hover:scale-105 group-hover:shadow-[0_0_20px_hsl(var(--primary))] transition-all duration-300">
-                                    {React.cloneElement(iconMap[item.icon] as React.ReactElement, { className: "w-12 h-12 text-primary group-hover:scale-110 transition-transform duration-300" })}
+                                <div className="w-32 h-32 rounded-full border-2 border-primary/5 bg-card/50 flex items-center justify-center shadow-[0_0_8px_hsl(var(--primary)/20)]">
+                                    {React.cloneElement(iconMap[item.icon] as React.ReactElement, { className: "w-12 h-12 text-primary" })}
                                 </div>
                                 <h3 className="text-xl font-bold mt-2 group-hover:text-primary transition-colors">{item.title}</h3>
                                 <p className="text-sm text-muted-foreground">{item.description}</p>
@@ -443,9 +453,9 @@ export default function DashboardPage() {
                 <div className="flex items-center justify-center gap-4 md:gap-8">
                     {initialContent.sustainability.lifecycle.map((step, index) => (
                         <React.Fragment key={step.name}>
-                            <div className="flex flex-col items-center gap-2 group transition-all duration-300">
-                                <div className="w-24 h-24 rounded-full border-2 border-primary/20 bg-card/50 flex items-center justify-center group-hover:bg-primary/10 group-hover:scale-105 group-hover:shadow-[0_0_20px_hsl(var(--primary))] transition-all duration-300">
-                                    {React.cloneElement(iconMap[step.icon] as React.ReactElement, { className: "w-10 h-10 text-primary group-hover:scale-110 transition-transform duration-300" })}
+                            <div className="flex flex-col items-center gap-2">
+                                <div className="w-24 h-24 rounded-full border-2 border-primary/5 bg-card/50 flex items-center justify-center shadow-[0_0_8px_hsl(var(--primary)/20)]">
+                                    {React.cloneElement(iconMap[step.icon] as React.ReactElement, { className: "w-10 h-10 text-primary" })}
                                 </div>
                                 <span className="font-semibold mt-2 group-hover:text-primary transition-colors">{step.name}</span>
                             </div>
@@ -471,11 +481,12 @@ export default function DashboardPage() {
                 <Carousel className="w-full max-w-4xl mx-auto"
                     opts={{
                         loop: true,
+                        duration: 700,
                     }}>
-                    <CarouselContent>
+                    <CarouselContent className="transition-all duration-700 ease-in-out">
                         {initialContent.dashboardPreview.images.map((image, index) => (
                             <CarouselItem key={index}>
-                                <Card className="overflow-hidden border-4 border-card bg-background/50">
+                                <Card className="overflow-hidden border-4 border-card bg-background/50 transition-all duration-700 ease-in-out">
                                     <div className="p-2 border-b border-border/50">
                                         <div className="flex items-center gap-1.5">
                                             <div className="w-3 h-3 rounded-full bg-red-500"></div>
