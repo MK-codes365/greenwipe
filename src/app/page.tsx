@@ -519,21 +519,22 @@ export default function DashboardPage() {
                                                 );
                                         })}
                 {/* Stylish title hover animation styles */}
-                <style jsx global>{`
-                    .stylish-title {
-                        color: #22c55e;
-                        text-shadow: 0 0 12px #22c55e55, 0 0 2px #fff;
-                        background: linear-gradient(90deg, #22c55e 0%, #38bdf8 100%);
-                        -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        transition: transform 0.3s, text-shadow 0.3s, background 0.3s;
-                    }
-                    .stylish-title:hover {
-                        transform: scale(1.08) rotate(-2deg);
-                        text-shadow: 0 0 32px #22c55e, 0 0 8px #38bdf8;
-                        background: linear-gradient(90deg, #38bdf8 0%, #22c55e 100%);
-                    }
-                `}</style>
+                        <style jsx global>{`
+                            .stylish-title {
+                                color: #22c55e;
+                                text-shadow: 0 0 12px #22c55e55, 0 0 2px #fff;
+                                background: linear-gradient(90deg, #22c55e 0%, #38bdf8 100%);
+                                transition: transform 0.3s, text-shadow 0.3s, background 0.3s;
+                                position: relative;
+                                z-index: 1;
+                            }
+                            .stylish-title:hover {
+                                transform: scale(1.08) rotate(-2deg);
+                                text-shadow: 0 0 32px #22c55e, 0 0 8px #38bdf8;
+                                background: linear-gradient(90deg, #38bdf8 0%, #22c55e 100%);
+                                color: #22c55e;
+                            }
+                        `}</style>
                 </div>
             </div>
         </section>
