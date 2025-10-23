@@ -478,27 +478,62 @@ export default function DashboardPage() {
                     </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-                    {initialContent.dashboardPreview.images.map((image, index) => (
-                        <Card key={index} className="overflow-hidden border-4 border-card bg-background/50">
-                            <div className="p-2 border-b border-border/50">
-                                <div className="flex items-center gap-1.5">
-                                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                                </div>
-                            </div>
-                            <CardContent className="p-0">
-                                <Image
-                                    src={image.src}
-                                    alt={image.alt}
-                                    width={1200}
-                                    height={800}
-                                    className="w-full h-auto"
-                                    data-ai-hint={image.hint}
-                                />
-                            </CardContent>
-                        </Card>
-                    ))}
+                                        {initialContent.dashboardPreview.images.map((image, index) => {
+                                                // Map index to stylish title
+                                                const titles = [
+                                                    "Dashboard",
+                                                    "Wipe Methods",
+                                                    "File Wipe",
+                                                    "Drive Wipe",
+                                                    "Multi Platform Wipe"
+                                                ];
+                                                const title = titles[index] || image.alt;
+                                                return (
+                                                    <Card key={index} className="overflow-hidden border-4 border-card bg-background/50">
+                                                        <div className="flex flex-col items-center">
+                                                            <span
+                                                                className="mb-4 text-2xl font-extrabold tracking-wide stylish-title transition-all duration-300 ease-in-out cursor-pointer"
+                                                                style={{ fontFamily: 'Poppins, Montserrat, sans-serif', letterSpacing: '0.05em' }}
+                                                            >
+                                                                {title}
+                                                            </span>
+                                                        </div>
+                                                        <div className="p-2 border-b border-border/50">
+                                                            <div className="flex items-center gap-1.5">
+                                                                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                                                                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                                                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                                                            </div>
+                                                        </div>
+                                                        <CardContent className="p-0">
+                                                            <Image
+                                                                src={image.src}
+                                                                alt={image.alt}
+                                                                width={1200}
+                                                                height={800}
+                                                                className="w-full h-auto"
+                                                                data-ai-hint={image.hint}
+                                                            />
+                                                        </CardContent>
+                                                    </Card>
+                                                );
+                                        })}
+                {/* Stylish title hover animation styles */}
+                <style jsx global>{`
+                    .stylish-title {
+                        color: #22c55e;
+                        text-shadow: 0 0 12px #22c55e55, 0 0 2px #fff;
+                        background: linear-gradient(90deg, #22c55e 0%, #38bdf8 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        transition: transform 0.3s, text-shadow 0.3s, background 0.3s;
+                    }
+                    .stylish-title:hover {
+                        transform: scale(1.08) rotate(-2deg);
+                        text-shadow: 0 0 32px #22c55e, 0 0 8px #38bdf8;
+                        background: linear-gradient(90deg, #38bdf8 0%, #22c55e 100%);
+                    }
+                `}</style>
                 </div>
             </div>
         </section>
