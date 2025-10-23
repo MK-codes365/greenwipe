@@ -477,40 +477,29 @@ export default function DashboardPage() {
                         {initialContent.dashboardPreview.description}
                     </p>
                 </div>
-
-                <Carousel className="w-full max-w-4xl mx-auto"
-                    opts={{
-                        loop: true,
-                        duration: 700,
-                    }}>
-                    <CarouselContent className="transition-all duration-700 ease-in-out">
-                        {initialContent.dashboardPreview.images.map((image, index) => (
-                            <CarouselItem key={index}>
-                                <Card className="overflow-hidden border-4 border-card bg-background/50 transition-all duration-700 ease-in-out">
-                                    <div className="p-2 border-b border-border/50">
-                                        <div className="flex items-center gap-1.5">
-                                            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                            <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                                        </div>
-                                    </div>
-                                    <CardContent className="p-0">
-                                        <Image
-                                            src={image.src}
-                                            alt={image.alt}
-                                            width={1200}
-                                            height={800}
-                                            className="w-full h-auto"
-                                            data-ai-hint={image.hint}
-                                        />
-                                    </CardContent>
-                                </Card>
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                    <CarouselPrevious className="left-[-50px]" />
-                    <CarouselNext className="right-[-50px]" />
-                </Carousel>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                    {initialContent.dashboardPreview.images.map((image, index) => (
+                        <Card key={index} className="overflow-hidden border-4 border-card bg-background/50">
+                            <div className="p-2 border-b border-border/50">
+                                <div className="flex items-center gap-1.5">
+                                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                                </div>
+                            </div>
+                            <CardContent className="p-0">
+                                <Image
+                                    src={image.src}
+                                    alt={image.alt}
+                                    width={1200}
+                                    height={800}
+                                    className="w-full h-auto"
+                                    data-ai-hint={image.hint}
+                                />
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
             </div>
         </section>
 
