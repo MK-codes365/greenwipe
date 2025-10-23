@@ -348,15 +348,59 @@ export default function DashboardPage() {
                     {initialContent.features.items.map((feature, index) => (
                         <div
                             key={index}
-                            className="bg-card/50 backdrop-blur-sm p-8 rounded-xl shadow-md shadow-[0_0_8px_hsl(var(--primary)/20)] flex flex-col items-center text-center border border-border/20"
+                            className="feature-card bg-card/50 backdrop-blur-sm p-8 rounded-xl shadow-md flex flex-col items-center text-center border border-border/20 transition-all duration-300"
                         >
-                            <div className="mb-4 text-primary">
+                            <div className="mb-4 text-primary feature-icon transition-all duration-300">
                                 {iconMap[feature.icon]}
                             </div>
-                            <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                            <h3 className="text-xl font-bold mb-2 feature-title transition-all duration-300">{feature.title}</h3>
                             <p className="text-muted-foreground">{feature.description}</p>
                         </div>
                     ))}
+                {/* Features card and icon hover animation styles */}
+                <style jsx global>{`
+                    .feature-card {
+                        box-shadow: 0 2px 16px 0 #22c55e22, 0 0 0 #38bdf8;
+                        border: 2px solid transparent;
+                        background-clip: padding-box;
+                        position: relative;
+                    }
+                    .feature-card:hover {
+                        transform: scale(1.05) translateY(-4px);
+                        box-shadow: 0 4px 32px 0 #22c55e55, 0 0 24px #38bdf855;
+                        border-image: linear-gradient(90deg, #22c55e, #38bdf8) 1;
+                        z-index: 2;
+                    }
+                    .feature-card::before {
+                        content: "";
+                        position: absolute;
+                        inset: -2px;
+                        border-radius: 1rem;
+                        background: linear-gradient(90deg, #22c55e 0%, #38bdf8 100%);
+                        opacity: 0.15;
+                        z-index: 0;
+                        pointer-events: none;
+                    }
+                    .feature-card:hover::before {
+                        opacity: 0.35;
+                    }
+                    .feature-icon {
+                        transition: transform 0.3s, filter 0.3s;
+                    }
+                    .feature-card:hover .feature-icon {
+                        transform: scale(1.2) rotate(-8deg);
+                        filter: drop-shadow(0 0 12px #22c55e) drop-shadow(0 0 8px #38bdf8);
+                    }
+                    .feature-title {
+                        background: linear-gradient(90deg, #22c55e 0%, #38bdf8 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        text-shadow: 0 0 8px #22c55e22;
+                    }
+                    .feature-card:hover .feature-title {
+                        text-shadow: 0 0 24px #22c55e, 0 0 8px #38bdf8;
+                    }
+                `}</style>
                 </div>
             </div>
         </section>
@@ -479,62 +523,44 @@ export default function DashboardPage() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                                         {initialContent.dashboardPreview.images.map((image, index) => {
-                                                // Map index to stylish title
-                                                const titles = [
-                                                    "Dashboard",
-                                                    "Wipe Methods",
-                                                    "File Wipe",
-                                                    "Drive Wipe",
-                                                    "Multi Platform Wipe"
-                                                ];
-                                                const title = titles[index] || image.alt;
-                                                return (
-                                                    <Card key={index} className="overflow-hidden border-4 border-card bg-background/50">
-                                                        <div className="flex flex-col items-center">
-                                                            <span
-                                                                className="mb-4 text-2xl font-extrabold tracking-wide stylish-title transition-all duration-300 ease-in-out cursor-pointer"
-                                                                style={{ fontFamily: 'Poppins, Montserrat, sans-serif', letterSpacing: '0.05em' }}
-                                                            >
-                                                                {title}
-                                                            </span>
+                                            const titles = [
+                                                "Dashboard",
+                                                "Wipe Methods",
+                                                "File Wipe",
+                                                "Drive Wipe",
+                                                "Multi Platform Wipe"
+                                            ];
+                                            const title = titles[index] || image.alt;
+                                            return (
+                                                <Card key={index} className="overflow-hidden border-4 border-card bg-background/50">
+                                                    <div className="flex flex-col items-center">
+                                                        <span
+                                                            className="mb-4 text-2xl font-extrabold tracking-wide text-green-600"
+                                                            style={{ fontFamily: 'Poppins, Montserrat, sans-serif', letterSpacing: '0.05em' }}
+                                                        >
+                                                            {title}
+                                                        </span>
+                                                    </div>
+                                                    <div className="p-2 border-b border-border/50">
+                                                        <div className="flex items-center gap-1.5">
+                                                            <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                                                            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                                            <div className="w-3 h-3 rounded-full bg-green-500"></div>
                                                         </div>
-                                                        <div className="p-2 border-b border-border/50">
-                                                            <div className="flex items-center gap-1.5">
-                                                                <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                                                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                                                <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                                                            </div>
-                                                        </div>
-                                                        <CardContent className="p-0">
-                                                            <Image
-                                                                src={image.src}
-                                                                alt={image.alt}
-                                                                width={1200}
-                                                                height={800}
-                                                                className="w-full h-auto"
-                                                                data-ai-hint={image.hint}
-                                                            />
-                                                        </CardContent>
-                                                    </Card>
-                                                );
+                                                    </div>
+                                                    <CardContent className="p-0">
+                                                        <Image
+                                                            src={image.src}
+                                                            alt={image.alt}
+                                                            width={1200}
+                                                            height={800}
+                                                            className="w-full h-auto"
+                                                            data-ai-hint={image.hint}
+                                                        />
+                                                    </CardContent>
+                                                </Card>
+                                            );
                                         })}
-                {/* Stylish title hover animation styles */}
-                        <style jsx global>{`
-                            .stylish-title {
-                                color: #22c55e;
-                                text-shadow: 0 0 12px #22c55e55, 0 0 2px #fff;
-                                background: linear-gradient(90deg, #22c55e 0%, #38bdf8 100%);
-                                transition: transform 0.3s, text-shadow 0.3s, background 0.3s;
-                                position: relative;
-                                z-index: 1;
-                            }
-                            .stylish-title:hover {
-                                transform: scale(1.08) rotate(-2deg);
-                                text-shadow: 0 0 32px #22c55e, 0 0 8px #38bdf8;
-                                background: linear-gradient(90deg, #38bdf8 0%, #22c55e 100%);
-                                color: #22c55e;
-                            }
-                        `}</style>
                 </div>
             </div>
         </section>
