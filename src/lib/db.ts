@@ -1,39 +1,16 @@
+// db-client.ts - temporary file
 import { PrismaClient } from '@prisma/client';
 
-function maskUrl(url?: string) {
-	if (!url) return null;
-	try {
-		const u = new URL(url);
-		if (u.password) u.password = '*****';
-		return u.toString();
-	} catch (e) {
-		return url.replace(/:(.+)@/, ':*****@');
-	}
+declare global {
+  var prisma: PrismaClient | undefined;
 }
 
-function buildDatabaseUrlFromEnv(): string | undefined {
-	if (process.env.DATABASE_URL && process.env.DATABASE_URL.length > 0) {
-		return process.env.DATABASE_URL;
-	}
+const client = global.prisma || new PrismaClient({
+  log: ['error', 'warn']
+});
 
-	const { PGHOST, PGPORT, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
-	if (PGHOST && PGUSER && PGPASSWORD && PGDATABASE) {
-		const port = PGPORT || '5432';
-		const password = encodeURIComponent(PGPASSWORD);
-		return `postgresql://${PGUSER}:${password}@${PGHOST}:${port}/${PGDATABASE}?sslmode=require`;
-	}
-
-	return undefined;
+if (process.env.NODE_ENV !== "production") {
+  global.prisma = client;
 }
 
-const runtimeUrl = buildDatabaseUrlFromEnv();
-
-if (process.env.NODE_ENV !== 'production') {
-	console.debug('[db] using DATABASE_URL:', maskUrl(runtimeUrl || process.env.DATABASE_URL));
-}
-
-const prisma = runtimeUrl
-	? new PrismaClient({ datasources: { db: { url: runtimeUrl } } })
-	: new PrismaClient();
-
-export default prisma;
+export default client;
