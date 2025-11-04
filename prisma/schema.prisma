@@ -17,6 +17,7 @@ datasource db {
 
 model Certificate {
   id                String   @id @default(uuid())
+  userId            String
   itemName          String
   itemSize          String
   wipeMethod        String
