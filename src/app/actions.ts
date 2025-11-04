@@ -214,7 +214,9 @@ export async function anchorCertificateAction(input: { certificateId: string }) 
 
 export async function createCertificateAction(input: CreateCertificateInput) {
   try {
-    const result = await createCertificate(input);
+    // Fallback: If userId is not provided, use a default system userId
+    const userId = input.userId || "system";
+    const result = await createCertificate({ ...input, userId });
     if (result && result.certificateId) {
       await prisma.stats.update({
         where: { id: "stats" },

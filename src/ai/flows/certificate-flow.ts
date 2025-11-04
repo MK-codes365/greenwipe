@@ -25,6 +25,7 @@ const createCertificateTool = ai.defineTool(
             itemSize: z.string(),
             clientName: z.string(),
             wipeMethod: z.string(),
+            userId: z.string(),
         }),
         outputSchema: z.object({ certificateId: z.string() }),
     },
@@ -53,6 +54,7 @@ const createCertificateTool = ai.defineTool(
         await prisma.certificate.create({
             data: {
                 id: certificateId,
+                userId: input.userId,
                 itemName: newCertificate.itemName,
                 itemSize: newCertificate.itemSize,
                 wipeMethod: newCertificate.wipeMethod,
@@ -77,6 +79,7 @@ const creationPrompt = ai.definePrompt({
         itemSize: z.string(),
         clientName: z.string(),
         wipeMethod: z.string(),
+        userId: z.string(),
     }) },
     output: { schema: z.object({ certificateId: z.string() }) },
     tools: [createCertificateTool],
@@ -97,15 +100,35 @@ export const createCertificateFlow = ai.defineFlow(
             itemSize: z.string(),
             clientName: z.string(),
             wipeMethod: z.string(),
+            userId: z.string(),
         }),
         outputSchema: z.object({ certificateId: z.string() }),
     },
     async (input) => {
-        const result = await creationPrompt(input);
-        const output = result.output;
-        if (!output) {
-            throw new Error('Failed to create certificate.');
+        // Try using the LLM prompt first. If it returns no output (null),
+        // fall back to calling the deterministic tool directly to create the certificate.
+        let output: { certificateId: string } | undefined;
+        try {
+            const result = await creationPrompt(input as any);
+            output = (result as any)?.output;
+        } catch (e) {
+            console.error('creationPrompt invocation failed, falling back to tool:', e);
         }
+
+        if (!output) {
+            // Fallback: call the tool directly
+            try {
+                const toolResult = await createCertificateTool(input as any);
+                if (!toolResult || !toolResult.certificateId) {
+                    throw new Error('Tool fallback did not return a certificateId');
+                }
+                return { certificateId: toolResult.certificateId };
+            } catch (e) {
+                console.error('createCertificateTool fallback failed:', e);
+                throw new Error('Failed to create certificate.');
+            }
+        }
+
         return output;
     }
 );

@@ -139,6 +139,7 @@ export function FileWiper() {
           itemSize: `${(selectedFile.size / 1024).toFixed(2)} KB`,
           clientName: 'Green Wipe Demo Client',
           wipeMethod: selectedWipeMethod,
+          userId: 'system', // Use a default userId for demo
         });
 
         if (result.success && result.data) {

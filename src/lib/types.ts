@@ -52,10 +52,11 @@ export type DataWipeSuggestionOutput = z.infer<typeof DataWipeSuggestionOutputSc
 
 
 export const CreateCertificateInputSchema = z.object({
-    itemName: z.string(),
-    itemSize: z.string(),
-    clientName: z.string(),
-    wipeMethod: z.string(),
+  itemName: z.string(),
+  itemSize: z.string(),
+  clientName: z.string(),
+  wipeMethod: z.string(),
+  userId: z.string(),
 });
 export type CreateCertificateInput = z.infer<typeof CreateCertificateInputSchema>;
 
