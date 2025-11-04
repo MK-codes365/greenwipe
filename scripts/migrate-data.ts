@@ -4,18 +4,11 @@ import db from '../src/lib/db'
 
 async function main() {
   try {
-    // Create system user
-    const systemUser = await db.user.create({
-      data: {
-        email: 'system@greenwipe.com',
-        name: 'System',
-        hashedPassword: await bcrypt.hash('system123', 12),
-      },
-    })
-    console.log('System user created successfully')
+    // No user table exists. Add any certificate update logic here if needed.
+    console.log('Migration completed: No user table exists.');
   } catch (error) {
-    console.error('Migration failed:', error)
-    throw error
+    console.error('Migration failed:', error);
+    throw error;
   }
 }
 
